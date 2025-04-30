@@ -40,6 +40,14 @@ public class Controlador {
         return false;
 	    }
 	
+	public boolean productoExiste(String codigo) {
+	    for (producto p : listaProducto) {
+	        if (p.getCod().equals(codigo)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 	public ArrayList<producto> listarProductos() {
 	    return listaProducto;
 	}

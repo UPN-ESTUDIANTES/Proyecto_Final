@@ -177,9 +177,20 @@ public class V_Empleado extends JDialog implements ActionListener {
 		{
 			btnSalir = new JButton("SALIR");
 			btnSalir.addActionListener(this);
-			btnSalir.setBounds(10, 274, 89, 23);
+			btnSalir.setBounds(10, 294, 89, 23);
 			contentPanel.add(btnSalir);
 		}
+		
+		JButton btnBuscar = new JButton("BUSCAR");
+		btnBuscar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+				
+			
+				
+		}
+		});
+		btnBuscar.setBounds(10, 261, 89, 23);
+		contentPanel.add(btnBuscar);
 	}		
 	
 	
@@ -201,6 +212,7 @@ public class V_Empleado extends JDialog implements ActionListener {
 	}
 	
 	protected void do_btnPorcesar_actionPerformed(ActionEvent e) {
+		
 		String cod=txtCod.getText();
 		String nom=txtNom.getText();
 		String cargo= cboCargo.getSelectedItem().toString();	

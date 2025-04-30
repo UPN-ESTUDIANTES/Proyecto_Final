@@ -9,9 +9,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Personal.Empleados;
+import Productos.Controlador;
 import Productos.producto;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
@@ -148,16 +151,29 @@ public class V_Producto extends JDialog implements ActionListener {
 			do_btnRegistrar_actionPerformed(e);
 		}
 	}
+	private Controlador controlador = new Controlador();
+
 	protected void do_btnRegistrar_actionPerformed(ActionEvent e) 
 	{
-		String tipopan = txtProducto.getText();
-		double precio = Double.parseDouble(txtPrecio.getText());
-		String cod = txtCod.getText();
-		int stock = Integer.parseInt(txtStock.getText());
-		
-		producto P1 = new producto(stock, tipopan, cod, precio);
-		Listado(P1);			
-	}
+		 String tipopan = txtProducto.getText();
+		    double precio = Double.parseDouble(txtPrecio.getText());
+		    String cod = txtCod.getText();
+		    int stock = Integer.parseInt(txtStock.getText());
+		    
+		    try {
+		        if (controlador.productoExiste(cod)) {
+		            throw new Exception("El código ya existe. Ingrese un código diferente.");
+		        }
+
+		        producto P1 = new producto(stock, tipopan, cod, precio);
+		        controlador.agregarproducto(P1);  
+		        Listado(P1);
+		        
+		    } catch (Exception ex) {
+		        JOptionPane.showMessageDialog(this, "El código ya existe");
+		    }
+		}
+
 	void Imprimir (String s)
 	{
 		txtS.append(s+"\n");
@@ -169,4 +185,5 @@ public class V_Producto extends JDialog implements ActionListener {
 		Imprimir("El precio es:" +P1.getPrecio());
 		Imprimir("El stock disponible es: "+P1.getStock());	
 	}
+	
 }
