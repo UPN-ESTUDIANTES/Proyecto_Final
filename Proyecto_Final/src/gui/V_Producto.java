@@ -178,6 +178,9 @@ public class V_Producto extends JDialog implements ActionListener {
 	{
 		txtS.append(s+"\n");
 	}
+	void Imprimir() {
+		txtS.append("----------------------------------\n");
+	}
 	void Listado(producto P1)
 	{
 		Imprimir("EL codigo es:  " + P1.getCod());

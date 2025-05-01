@@ -227,6 +227,9 @@ public class V_Empleado extends JDialog implements ActionListener {
 	{
 		txtS.append(s+"\n");
 	}
+	void Imprimir() {
+		txtS.append("-------------------------------------\n");
+	}
 	void Listado(Empleados e)
 	{
 		Imprimir("EL codigo es:  " + e.getCod());
