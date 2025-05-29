@@ -63,7 +63,7 @@ public class EmpleadoV extends JDialog implements ActionListener {
 	 */
 	public EmpleadoV() {
 		setTitle("EMPLEADO");
-		setBounds(100, 100, 526, 396);
+		setBounds(100, 100, 784, 428);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -140,7 +140,7 @@ public class EmpleadoV extends JDialog implements ActionListener {
 		}
 		{
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(134, 182, 315, 148);
+			scrollPane.setBounds(134, 182, 624, 196);
 			contentPanel.add(scrollPane);
 			{
 				txtSE = new JTextArea();
@@ -173,7 +173,16 @@ public class EmpleadoV extends JDialog implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 	}
-	
+	private String obtenerNombreCargo(int index) {
+	    switch (index) {
+	        case 0: return "GERENTE";
+	        case 1: return "SUPERVISOR";
+	        case 2: return "PANADERO";
+	        case 3: return "ATENCIÓN AL CLIENTE";
+	        case 4: return "CAJERO";
+	        default: return "DESCONOCIDO";
+	    }
+	}
 	private double ObtenerSueldoPorCargo(int index) {
 	    if (index == 0) return 2500;
 	    else if (index == 1) return 1800;
@@ -207,27 +216,26 @@ public class EmpleadoV extends JDialog implements ActionListener {
 	private void Listado(ControladorE ctl) {
 		txtSE.setText("");
 		if(CBOafilia()==0) {
-			Imprimir("ID EMPLEADO\tNOMBRE\tCARGO\tSUELDO BASE\tSUELDO BRUTO\tDSCTO APF\tDSCTO ESSALUD\tSUELDO NETO");
+			Imprimir("ID EMPLEADO\tNOMBRE\tCARGO\tSUELDO BASE\t\tSUELDO BRUTO\tDSCTO APF\tDSCTO ONP\tDSCTO ESSALUD\tSUELDO NETO");
 			ListadoRecursivo(ctl, 0);
 		}
 		else {
-			Imprimir("ID EMPLEADO\tNOMBRE\tCARGO\tSUELDO BASE\tSUELDO BRUTO\tDSCTO ONP\tDSCTO ESSALUD\tSUELDO NETO");
+			Imprimir("ID EMPLEADO\tNOMBRE\tCARGO\tSUELDO BASE\tSUELDO BRUTO\tDSCTO APF\tDSCTO ONP\tDSCTO ESSALUD\tSUELDO NETO");
 			ListadoRecursivo(ctl, 0);
 		}
+
 	}
 	private void ListadoRecursivo(ControladorE ctl,int i) {
 		if(i < ctl.TamañoPago()) {
-			Trabajadores.Empleados emp = ctl.ObtenerPago(i);
-			if(CBOafilia()==0) {
-				Imprimir(emp.getIDEMPLEADO()+"\t"+emp.getNomE()+"\t"+emp.getCargo()+"\t"+emp.getSueldo()+"\t"+emp.SueldoBruto()+"\t"+emp.DsctoAFP()+"\t"+emp.SueldoNeto());
-				ListadoRecursivo(ctl, i + 1);
-			}
-			else {
-				Imprimir(emp.getIDEMPLEADO()+"\t"+emp.getNomE()+"\t"+emp.getCargo()+"\t"+emp.getSueldo()+"\t"+emp.SueldoBruto()+"\t"+emp.DsctoONP()+"\t"+emp.SueldoNeto());
-				ListadoRecursivo(ctl, i + 1);
-			}
+		Empleados emp = ctl.ObtenerPago(i);
+		if(CBOafilia()==0) {
+			Imprimir(emp.getIDEMPLEADO()+"\t"+emp.getNomE()+"\t"+obtenerNombreCargo(i)+"\t"+emp.getSueldo()+"\t"+emp.SueldoBruto()+"\t"+emp.DsctoAFP()+"\t"+emp.DsctoESSALUD()+"\t"+emp.SueldoNeto());
+			ListadoRecursivo(ctl, i + 1);
+		}
+		else {
+			Imprimir(emp.getIDEMPLEADO()+"\t"+emp.getNomE()+"\t"+obtenerNombreCargo(i)+"\t"+emp.getSueldo()+"\t"+emp.SueldoBruto()+"\t"+emp.DsctoONP()+"\t"+emp.DsctoESSALUD()+"\t"+emp.SueldoNeto());
+			ListadoRecursivo(ctl, i + 1);
 		}
 	}
-
-
+}
 }

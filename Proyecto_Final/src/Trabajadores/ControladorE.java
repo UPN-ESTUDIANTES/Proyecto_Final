@@ -31,4 +31,7 @@ public boolean ModificarPago(int IDemp, Empleados NuevoPago) {
 	}
 	return false;
 }
+public ArrayList<Empleados> MostrarLista(){
+	return ListEmpleados;
+}
 }
